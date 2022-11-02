@@ -11,19 +11,6 @@ class bigReal {
 
 private:
 
-    BigDecimalInt decimalPart;
-
-    BigDecimalInt fractionPart;
-
-    string number;
-
-    double doubleNum; // for the default constructor
-
-    char numSign;
-
-    bool checkValidInput(string input);
-
-    string changeNumSign(bigReal num, int sign);
 
 public:
     bigReal (double realNumber = 0.0); // Default constructor
