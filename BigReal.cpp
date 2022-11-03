@@ -53,33 +53,33 @@ BigReal::BigReal(BigDecimalInt& bigInteger){
 BigDecimalInt BigReal::get_integer() {
     return bigDecimalNum;
 }
-
+// Copy constructor
 BigReal::BigReal(const BigReal& other) {
     realNum = other.realNum;
     bigDecimalNum = other.bigDecimalNum;
     decimalPoint = other.decimalPoint;
     cout<<"Copied"<<endl;
 }
-
+//move constructor
 BigReal::BigReal(BigReal &&other) {
     realNum =std::move(other.realNum);
     bigDecimalNum = std::move(other.bigDecimalNum);
     decimalPoint = std::move(other.decimalPoint);
-    cout<<"Moved"<<endl;
+    cout<<"moved"<<endl;
 }
-
+//assignment operator
 BigReal &BigReal::operator=(const BigReal &other) {
     realNum = other.realNum;
     bigDecimalNum = other.bigDecimalNum;
     decimalPoint = other.decimalPoint;
-    cout<<"copy";
+    cout<<"Copied from = operator"<<endl;
     return *this;
 }
-
+//Move assignment
 BigReal &BigReal::operator=(BigReal &&other) {
     realNum = std::move(other.realNum);
     bigDecimalNum = std::move(other.bigDecimalNum);
     decimalPoint = std::move(other.decimalPoint);
-    cout<<"move";
+    cout<<"Moved from = operator"<<endl;
     return *this;
 }
