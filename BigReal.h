@@ -7,23 +7,23 @@
 class BigReal {
 
 private:
-    BigDecimalInt integer;
-
-    int decimalPoint;
+    string realNum;
+    BigDecimalInt bigDecimalNum;
+    int decimalPoint{};
 
 public:
-
+    BigDecimalInt get_integer();
     BigReal (double realNumber); // Default constructor
 
     BigReal (string realNumber);
 
-    BigReal (BigDecimalInt bigInteger);
+    BigReal (BigDecimalInt& bigInteger);
 
     BigReal (const BigReal& other); // Copy constructor
 
-    BigReal (BigReal&& other); // Move constructor
+    BigReal (BigReal&& other) ; // move constructor
 
-    BigReal& operator= (BigReal& other); // Assignment operator
+    BigReal& operator = (const BigReal& other); // assignment operator
 
     BigReal& operator= (BigReal&& other); // Move assignment
 

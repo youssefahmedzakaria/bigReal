@@ -24,13 +24,13 @@ private:
     string number;
     char sign;
     void setNumber(string num);
-    bool checkValidInput(string input);
+    static bool checkValidInput(string input);
 
 public:
     bool operator < (const BigDecimalInt& anotherDec);
     bool operator > (const BigDecimalInt& anotherDec);
     bool operator == (const BigDecimalInt anotherDec);
-    BigDecimalInt& operator = (BigDecimalInt &anotherDec);
+    BigDecimalInt& operator = (const BigDecimalInt &anotherDec);
     BigDecimalInt operator + (BigDecimalInt number2);
     BigDecimalInt operator - (BigDecimalInt anotherDec);
     friend ostream &operator << (ostream &out, BigDecimalInt num);

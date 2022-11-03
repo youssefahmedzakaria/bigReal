@@ -115,7 +115,7 @@ bool BigDecimalInt :: operator == (const BigDecimalInt anotherDec)
     }
 }
 // operator = overloading function.
-BigDecimalInt& BigDecimalInt :: operator = (BigDecimalInt &anotherDec)
+BigDecimalInt& BigDecimalInt :: operator = (const BigDecimalInt &anotherDec)
 {
     sign = anotherDec.sign;
     number = anotherDec.number;
