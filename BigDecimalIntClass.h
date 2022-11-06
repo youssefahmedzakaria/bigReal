@@ -27,6 +27,7 @@ private:
     static bool checkValidInput(string input);
 
 public:
+    string getNumber();
     bool operator < (const BigDecimalInt& anotherDec);
     bool operator > (const BigDecimalInt& anotherDec);
     bool operator == (const BigDecimalInt anotherDec);

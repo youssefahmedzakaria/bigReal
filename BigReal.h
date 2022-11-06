@@ -7,12 +7,12 @@
 class BigReal {
 
 private:
-    string realNum;
-    BigDecimalInt bigDecimalNum;
+    string rNum;
+    //BigDecimalInt bigDecimalNum;
     int decimalPoint{};
 
 public:
-    BigDecimalInt get_integer();
+    string get_integer();
     BigReal (double realNumber); // Default constructor
 
     BigReal (string realNumber);

@@ -4,7 +4,7 @@
 BigReal::BigReal(double realNumber) {
     if (realNumber == 0.0) {
         BigDecimalInt number1(0);
-        bigDecimalNum = number1;
+        rNum = number1.getNumber();
         decimalPoint = 0;
     } else {
         string s = to_string(realNumber);
@@ -18,9 +18,7 @@ BigReal::BigReal(double realNumber) {
                 break;
             }
         }
-        s.erase(remove(s.begin(), s.end(), '.'), s.end());
-        BigDecimalInt number2(s);
-        bigDecimalNum = number2;
+        rNum = realNumber;
         decimalPoint = decimalPlace;
     }
 }
@@ -38,48 +36,78 @@ BigReal::BigReal(string RealNumber) {
                 break;
             }
         }
-        RealNumber.erase(remove(RealNumber.begin(), RealNumber.end(), '.'), RealNumber.end());
-        BigDecimalInt number2(RealNumber);
-        bigDecimalNum = number2;
+        rNum = RealNumber;
         decimalPoint = decimalPlace;
-    } else
-        return;
+    }
 }
 
 BigReal::BigReal(BigDecimalInt& bigInteger){
-    bigDecimalNum = bigInteger;
+    rNum = bigInteger.getNumber();
 }
 
-BigDecimalInt BigReal::get_integer() {
-    return bigDecimalNum;
+string BigReal::get_integer() {
+    return rNum;
 }
 // Copy constructor
 BigReal::BigReal(const BigReal& other) {
-    realNum = other.realNum;
-    bigDecimalNum = other.bigDecimalNum;
+    rNum = other.rNum;
     decimalPoint = other.decimalPoint;
-    cout<<"Copied"<<endl;
+//    cout<<"Copied"<<endl;
 }
 //move constructor
 BigReal::BigReal(BigReal &&other) {
-    realNum =std::move(other.realNum);
-    bigDecimalNum = std::move(other.bigDecimalNum);
+    rNum =std::move(other.rNum);
     decimalPoint = std::move(other.decimalPoint);
-    cout<<"moved"<<endl;
+//    cout<<"moved"<<endl;
 }
 //assignment operator
 BigReal &BigReal::operator=(const BigReal &other) {
-    realNum = other.realNum;
-    bigDecimalNum = other.bigDecimalNum;
+    rNum = other.rNum;
     decimalPoint = other.decimalPoint;
-    cout<<"Copied from = operator"<<endl;
+//    cout<<"Copied from = operator"<<endl;
     return *this;
 }
 //Move assignment
 BigReal &BigReal::operator=(BigReal &&other) {
-    realNum = std::move(other.realNum);
-    bigDecimalNum = std::move(other.bigDecimalNum);
+    rNum = std::move(other.rNum);
     decimalPoint = std::move(other.decimalPoint);
-    cout<<"Moved from = operator"<<endl;
+//    cout<<"Moved from = operator"<<endl;
     return *this;
 }
+
+BigReal BigReal::operator+(BigReal &other) {
+    string s1 = rNum;
+    string s2 = other.rNum;
+    s1.erase(remove(s1.begin(), s1.end(), '.'),s1.end());
+    s2.erase(remove(s2.begin(), s2.end(), '.'),s2.end());
+    if(decimalPoint < other.decimalPoint){
+        int diff = other.decimalPoint - decimalPoint;
+         s1.insert(0,diff,'0');
+
+    }else if(decimalPoint > other.decimalPoint){
+        int diff = decimalPoint - other.decimalPoint;
+        s2.insert(0,diff,'0');
+
+    }
+    long long n1 = s2.size()-s1.size();
+    long long n2 = s1.size()-s2.size();
+    if(s1.size()<s2.size()){
+        for (long long i = 0; i < n1; ++i) {
+            s1+="0";
+        }
+    }
+    if(s2.size()<s1.size()){
+        for (long long i = 0; i < n2; ++i) {
+            s2+="0";
+        }
+    }
+    BigDecimalInt number1(s1);
+    BigDecimalInt number2(s2);
+    BigDecimalInt number3 = number1 + number2;
+    string s3 = number3.getNumber();
+    int pos = max(decimalPoint,other.decimalPoint);
+    s3.insert(pos,1,'.');
+    BigReal res(s3);
+    return res;
+}
+
