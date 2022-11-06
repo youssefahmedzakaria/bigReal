@@ -22,7 +22,7 @@ BigReal::BigReal(double realNumber) {
         decimalPoint = decimalPlace;
     }
 }
-
+//constructor edited
 BigReal::BigReal(string RealNumber) {
     regex validInput("[+-]?([0-9]*[.])?[0-9]+");
     if (regex_match(RealNumber, validInput)) {
@@ -74,7 +74,7 @@ BigReal &BigReal::operator=(BigReal &&other) {
 //    cout<<"Moved from = operator"<<endl;
     return *this;
 }
-
+//plus operator 
 BigReal BigReal::operator+(BigReal &other) {
     string s1 = rNum;
     string s2 = other.rNum;
