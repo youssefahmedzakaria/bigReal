@@ -82,7 +82,7 @@ BigReal BigReal::operator+(BigReal &other) {
     s2.erase(remove(s2.begin(), s2.end(), '.'),s2.end());
     if(decimalPoint < other.decimalPoint){
         int diff = other.decimalPoint - decimalPoint;
-         s1.insert(0,diff,'0');
+        s1.insert(0,diff,'0');
 
     }else if(decimalPoint > other.decimalPoint){
         int diff = decimalPoint - other.decimalPoint;
@@ -110,4 +110,3 @@ BigReal BigReal::operator+(BigReal &other) {
     BigReal res(s3);
     return res;
 }
-
