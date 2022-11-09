@@ -74,39 +74,75 @@ BigReal &BigReal::operator=(BigReal &&other) {
 //    cout<<"Moved from = operator"<<endl;
     return *this;
 }
-//plus operator 
+//plus operator
 BigReal BigReal::operator+(BigReal &other) {
     string s1 = rNum;
     string s2 = other.rNum;
-    s1.erase(remove(s1.begin(), s1.end(), '.'),s1.end());
-    s2.erase(remove(s2.begin(), s2.end(), '.'),s2.end());
-    if(decimalPoint < other.decimalPoint){
+    s1.erase(remove(s1.begin(), s1.end(), '.'), s1.end());
+    s2.erase(remove(s2.begin(), s2.end(), '.'), s2.end());
+    if (decimalPoint < other.decimalPoint) {
         int diff = other.decimalPoint - decimalPoint;
-        s1.insert(0,diff,'0');
+        s1.insert(0, diff, '0');
 
-    }else if(decimalPoint > other.decimalPoint){
+    } else if (decimalPoint > other.decimalPoint) {
         int diff = decimalPoint - other.decimalPoint;
-        s2.insert(0,diff,'0');
+        s2.insert(0, diff, '0');
 
     }
-    long long n1 = s2.size()-s1.size();
-    long long n2 = s1.size()-s2.size();
-    if(s1.size()<s2.size()){
+    long long n1 = s2.size() - s1.size();
+    long long n2 = s1.size() - s2.size();
+    if (s1.size() < s2.size()) {
         for (long long i = 0; i < n1; ++i) {
-            s1+="0";
+            s1 += "0";
         }
     }
-    if(s2.size()<s1.size()){
+    if (s2.size() < s1.size()) {
         for (long long i = 0; i < n2; ++i) {
-            s2+="0";
+            s2 += "0";
         }
     }
     BigDecimalInt number1(s1);
     BigDecimalInt number2(s2);
     BigDecimalInt number3 = number1 + number2;
     string s3 = number3.getNumber();
-    int pos = max(decimalPoint,other.decimalPoint);
-    s3.insert(pos,1,'.');
+    int pos = max(decimalPoint, other.decimalPoint);
+    s3.insert(pos, 1, '.');
+    BigReal res(s3);
+    return res;
+}
+
+BigReal BigReal::operator-(BigReal &other) {
+    string s1 = rNum;
+    string s2 = other.rNum;
+    s1.erase(remove(s1.begin(), s1.end(), '.'), s1.end());
+    s2.erase(remove(s2.begin(), s2.end(), '.'), s2.end());
+    if (decimalPoint < other.decimalPoint) {
+        int diff = other.decimalPoint - decimalPoint;
+        s1.insert(0, diff, '0');
+
+    } else if (decimalPoint > other.decimalPoint) {
+        int diff = decimalPoint - other.decimalPoint;
+        s2.insert(0, diff, '0');
+
+    }
+    long long n1 = s2.size() - s1.size();
+    long long n2 = s1.size() - s2.size();
+    if (s1.size() < s2.size()) {
+        for (long long i = 0; i < n1; ++i) {
+            s1 += "0";
+        }
+    }
+    if (s2.size() < s1.size()) {
+        for (long long i = 0; i < n2; ++i) {
+            s2 += "0";
+        }
+    }
+    BigDecimalInt number1(s1);
+    BigDecimalInt number2(s2);
+    BigDecimalInt number3 = number1 - number2;
+    string s3 = number3.getNumber();
+    int pos = max(decimalPoint, other.decimalPoint);
+    s3.insert(pos, 1, '.');
     BigReal res(s3);
     return res;
 }
