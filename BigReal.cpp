@@ -196,7 +196,7 @@ BigReal BigReal::operator-(BigReal &other) {
             s2 += "0";
         }
     }
-//here's the number after making them equal in length
+//  here's the number after making them equal in length
     cout << "the first number = " << s1 << endl;
     cout << "the second number = " << s2 << endl << endl;
     cout << "result = ";
