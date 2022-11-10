@@ -1,6 +1,7 @@
 #include "BigReal.h"
 
 
+
 BigReal::BigReal(double realNumber) {
     if (realNumber == 0.0) {
         BigDecimalInt number1(0);
@@ -42,11 +43,20 @@ BigReal::BigReal(string RealNumber) {
     }
 }
 
+//To get the sign of the real number
 int sign(string s) {
     if (s[0] == '-') {
         return -1;
     } else
         return 1;
+}
+
+//To get the size of the real number
+int BigReal::size(){
+    if(rNum[0]=='-' || rNum[0]=='+')
+        return rNum.size()-2;
+    else
+        return rNum.size()-1;
 }
 
 BigReal::BigReal(BigDecimalInt& bigInteger){
@@ -79,6 +89,8 @@ BigReal &BigReal::operator=(const BigReal &other) {
     return *this;
 }
 
+
+
 //Move assignment
 BigReal &BigReal::operator=(BigReal &&other) {
     rNum = std::move(other.rNum);
@@ -86,6 +98,7 @@ BigReal &BigReal::operator=(BigReal &&other) {
 //    cout<<"Moved from = operator"<<endl;
     return *this;
 }
+
 
 //plus operator
 BigReal BigReal::operator+(BigReal &other) {
@@ -121,10 +134,8 @@ BigReal BigReal::operator+(BigReal &other) {
             s2 += "0";
         }
     }
-//here's the number after making them equal in length
-    cout << "the first number = " << s1 << endl;
-    cout << "the second number = " << s2 << endl<<endl;
-    cout<<"result = ";
+
+
 //    to do the addition
     BigDecimalInt number1(s1);
     BigDecimalInt number2(s2);
@@ -196,17 +207,14 @@ BigReal BigReal::operator-(BigReal &other) {
             s2 += "0";
         }
     }
-//  here's the number after making them equal in length
-    cout << "the first number = " << s1 << endl;
-    cout << "the second number = " << s2 << endl << endl;
-    cout << "result = ";
     BigDecimalInt number1(s1);
     BigDecimalInt number2(s2);
 //    to do the subtraction
     if (sign1 != '-' && sign2 == '-') {
         BigDecimalInt number2(s2);
-        BigDecimalInt number3 = number1 - number2;
+        BigDecimalInt number3 = number1 + number2;
         string s3 = number3.getNumber();
+        s3.insert(0, 1, '-');
         int pos = max(decimalPoint, other.decimalPoint);
         s3.insert(pos, 1, '.');
         BigReal res(s3);
@@ -240,4 +248,111 @@ BigReal BigReal::operator-(BigReal &other) {
     }
 }
 
+// == operator
+bool BigReal::operator== (BigReal other){
+    if(rNum.size()!=other.rNum.size())
+        return 0;
 
+    else if( rNum.size()==other.rNum.size()) {
+        int size = rNum.size();
+        int count = 0;
+        for (int i = 0; i < size; i++) {
+            if (rNum[i] != other.rNum[i])
+                count++;
+        }
+        if (count == 0)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+// > operator
+bool BigReal::operator >(BigReal other){
+    if (rNum[0]!='-' && other.rNum[0]!='-')
+        if( decimalPoint > other.decimalPoint)
+            return 1 ;
+        else if (decimalPoint < other.decimalPoint)
+            return 0 ;
+        else{
+            for(int i=0 ; i<decimalPoint ; i++){
+                if(rNum[i]==other.rNum[i])
+                    continue;
+                else if(rNum[i]>other.rNum[i])
+                    return 1;
+                else if(rNum[i]<other.rNum[i])
+                    return 0;
+            }
+        }
+
+        else if (rNum[0]=='-' && other.rNum[0]=='-')
+        if( decimalPoint < other.decimalPoint)
+            return 1 ;
+        else if (decimalPoint > other.decimalPoint)
+            return 0 ;
+        else{
+            for(int i=0 ; i<decimalPoint ; i++){
+                if(rNum[i+1]==other.rNum[i+1])
+                    continue;
+                else if(rNum[i+1]>other.rNum[i+1])
+                    return 0;
+                else if(rNum[i+1]<other.rNum[i+1])
+                    return 1;
+            }
+        }
+    else if (rNum[0]!='-' && other.rNum[0]=='-')
+        return 1;
+
+    else if (rNum[0]=='-' && other.rNum[0]!='-')
+        return 0;
+}
+
+
+// < operator
+bool BigReal::operator <(BigReal other) {
+    if (rNum[0] != '-' && other.rNum[0] != '-')
+        if (decimalPoint < other.decimalPoint)
+            return 1;
+        else if (decimalPoint > other.decimalPoint)
+            return 0;
+        else {
+            for (int i = 0; i < decimalPoint; i++) {
+                if (rNum[i] == other.rNum[i])
+                    continue;
+                else if (rNum[i] > other.rNum[i])
+                    return 0;
+                else if (rNum[i] < other.rNum[i])
+                    return 1;
+            }
+        }
+
+    else if (rNum[0] == '-' && other.rNum[0] == '-')
+        if (decimalPoint < other.decimalPoint)
+            return 0;
+        else if (decimalPoint > other.decimalPoint)
+            return 1;
+        else {
+            for (int i = 0; i < decimalPoint; i++) {
+                if (rNum[i + 1] == other.rNum[i + 1])
+                    continue;
+                else if (rNum[i + 1] > other.rNum[i + 1])
+                    return 1;
+                else if (rNum[i + 1] < other.rNum[i + 1])
+                    return 0;
+            }
+        }
+    else if (rNum[0] != '-' && other.rNum[0] == '-')
+        return 0;
+}
+
+//ostream operator overloading
+ostream &operator<<(ostream &out, BigReal num) {
+    out << num.rNum;
+    return out;
+}
+
+//istream operator overloading
+istream& operator >> (istream& in, BigReal num){
+    in >> num.rNum;
+    return in;
+}
