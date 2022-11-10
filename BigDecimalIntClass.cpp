@@ -369,3 +369,5 @@ ostream &operator << (ostream &out, BigDecimalInt num)
 string BigDecimalInt::getNumber() {
     return number;
 }
+
+

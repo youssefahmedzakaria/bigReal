@@ -37,12 +37,7 @@ public:
     friend ostream &operator << (ostream &out, BigDecimalInt num);
     int size();
     int Sign();
-
-    BigDecimalInt(){}
-    BigDecimalInt(string num)
-    {
-        setNumber(num);
-    }
+    BigDecimalInt(){}BigDecimalInt(string num){setNumber(num);}
 };
 
 #endif //BIGDECIMALINT_BIGDECIMALINTCLASS_H
