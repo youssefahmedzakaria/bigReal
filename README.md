@@ -9,7 +9,7 @@
 * Group members :
   * Youssef Ahmed
   * Ziad Nasser
-  * Zeyad El-naggar
+  * Zeyad El Naggar
 #### Description :
 This project creates new double data type with no size limit and applies some operations to it.
 
